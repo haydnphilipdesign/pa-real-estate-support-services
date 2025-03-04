@@ -5,7 +5,7 @@ import reactRefresh from 'eslint-plugin-react-refresh';
 import typescriptEslint from '@typescript-eslint/eslint-plugin';
 import unusedImports from "eslint-plugin-unused-imports";
 
-export default typescriptEslint.config({ ignores: ['dist'] }, {
+module.exports = {
     extends: [js.configs.recommended, ...require('@typescript-eslint/eslint-plugin').configs.recommended],
     files: ['**/*.{ts,tsx}'],
     languageOptions: {
@@ -31,4 +31,4 @@ export default typescriptEslint.config({ ignores: ['dist'] }, {
             { vars: 'all', varsIgnorePattern: '^_', args: 'after-used', argsIgnorePattern: '^_' },
         ],
     },
-});
+};

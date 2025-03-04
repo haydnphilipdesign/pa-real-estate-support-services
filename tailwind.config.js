@@ -1,15 +1,7 @@
 /** @type {import('tailwindcss').Config} */
-module.exports = {
+export default {
   darkMode: ["class"],
-  content: [
-    "./src/pages/**/*.{js,ts,jsx,tsx}",
-    "./src/components/**/*.{js,ts,jsx,tsx}",
-    "./src/app/**/*.{js,ts,jsx,tsx}",
-    "./src/layouts/**/*.{js,ts,jsx,tsx}",
-    "./src/features/**/*.{js,ts,jsx,tsx}",
-    "./src/utils/**/*.{js,ts,jsx,tsx}",
-    "./index.html"
-  ],
+  content: ["./src/**/*.{js,jsx,ts,tsx}"],
   safelist: [
     'bg-brand-blue',
     'text-brand-blue',
@@ -80,6 +72,8 @@ module.exports = {
         },
         'brand-blue': '#0066CC',
         'brand-gold': '#FFB81C',
+        'brand-navy': '#0F1C2E',
+        'brand-gold': '#B38B59',
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -107,5 +101,5 @@ module.exports = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [],
 }

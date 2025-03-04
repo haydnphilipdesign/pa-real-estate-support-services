@@ -1,8 +1,13 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import path from 'path';
+import { fileURLToPath } from 'url';
 import { visualizer } from 'rollup-plugin-visualizer';
 import { imagetools } from 'vite-imagetools';
+
+// Get the directory name using ES modules compatible approach
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
@@ -10,7 +15,7 @@ export default defineConfig(({ mode }) => ({
     react({
       jsxRuntime: 'automatic',
       // Add React refresh options
-      fastRefresh: true,
+      // fastRefresh: true, // Removed fastRefresh option
       // Include specific imports for better tree-shaking
       include: "**/*.{jsx,tsx}",
       babel: {
@@ -50,12 +55,13 @@ export default defineConfig(({ mode }) => ({
     },
     chunkSizeWarningLimit: 1000,
     assetsInlineLimit: 10000, // 10kb
+    target: 'esnext'
   },
   resolve: {
-    alias: [
-      { find: '@', replacement: '/src' },
-      { find: '@components', replacement: '/src/components' }
-    ]
+    alias: {
+      '@': path.resolve(__dirname, './src'),
+    },
+    extensions: ['.js', '.jsx', '.ts', '.tsx', '.json']
   },
   optimizeDeps: {
     // Force include problematic dependencies
@@ -96,6 +102,10 @@ export default defineConfig(({ mode }) => ({
     'process.env.NODE_ENV': JSON.stringify(mode),
     'import.meta.env.DEV': mode === 'development',
     'import.meta.env.PROD': mode === 'production',
+    'process.env': {
+      VITE_AIRTABLE_API_KEY: JSON.stringify(process.env.VITE_AIRTABLE_API_KEY),
+      VITE_AIRTABLE_BASE_ID: JSON.stringify(process.env.VITE_AIRTABLE_BASE_ID)
+    }
   },
   test: {
     globals: true,
